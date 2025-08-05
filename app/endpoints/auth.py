@@ -175,8 +175,6 @@ async def update_me(
         user_to_update.phone = update_data.phone
     if update_data.country_id is not None:
         user_to_update.country_id = update_data.country_id
-    if update_data.education_area_id is not None:
-        user_to_update.education_area_id = update_data.education_area_id
     db.commit()
     db.refresh(user_to_update)
     return UserMeResponse.model_validate(user_to_update, from_attributes=True)

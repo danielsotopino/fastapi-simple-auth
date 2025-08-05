@@ -11,7 +11,6 @@ def init_db():
     # Import all models to ensure they are registered
     from app.models.user import User, UserType
     from app.models.country import Country
-    from app.models.education_area import EducationArea
     from app.models.verification_token import VerificationToken
     from app.models.class_model import Class
     
@@ -37,19 +36,6 @@ def init_db():
         
         for country in countries:
             db.add(country)
-        db.commit()
-        
-        # Create sample education areas
-        education_areas = [
-            EducationArea(name="Mathematics"),
-            EducationArea(name="Science"),
-            EducationArea(name="Language Arts"),
-            EducationArea(name="History"),
-            EducationArea(name="Physical Education"),
-        ]
-        
-        for area in education_areas:
-            db.add(area)
         db.commit()
         
         # Create sample admin user

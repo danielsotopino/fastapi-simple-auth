@@ -3,7 +3,6 @@ import re
 from typing import Optional, Annotated
 from datetime import datetime
 from .master_tables import Country
-from .base import EducationAreaOut
 # If UserType enum is needed for UserResponse, it should be imported
 # from app.models.user import UserType # Assuming UserType is in user.py
 
@@ -52,7 +51,6 @@ class PasswordResetConfirm(BaseModel):
 from typing import Optional
 from datetime import datetime
 from .master_tables import Country
-from .base import EducationAreaOut
 # If UserType enum is needed for UserResponse, it should be imported
 # from app.models.user import UserType # Assuming UserType is in user.py
 
@@ -63,7 +61,6 @@ class UserCreateRequest(BaseModel):
     last_name: str
     phone: Optional[str] = None
     country_id: Optional[int] = None
-    education_area_id: Optional[int] = None
     user_type: Optional[str] = None
 
     @field_validator('password')
@@ -91,7 +88,6 @@ class UserResponse(BaseModel):
     is_oauth_user: bool
     phone: Optional[str] = None
     country: Optional[Country] = None
-    education_area: Optional[EducationAreaOut] = None
     created_at: datetime
     updated_at: datetime
 
@@ -116,7 +112,6 @@ class UserMeResponse(BaseModel):
     user_type: str
     phone: Optional[str] = None
     country: Optional[Country] = None
-    education_area: Optional[EducationAreaOut] = None
 
     class Config:
         from_attributes = True
@@ -128,4 +123,3 @@ class UserMeUpdateRequest(BaseModel):
     last_name: Optional[str] = None
     phone: Optional[str] = None
     country_id: Optional[int] = None
-    education_area_id: Optional[int] = None

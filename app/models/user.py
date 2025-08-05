@@ -25,7 +25,5 @@ class User(Base):
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
     country_id = Column(Integer, ForeignKey("countries.id"), nullable=True)
     country = relationship("Country", backref="users")
-    education_area_id = Column(Integer, ForeignKey("education_areas.id"), nullable=True)
-    education_area = relationship("EducationArea", back_populates="users")
 
     classes = relationship("Class", back_populates="author") 

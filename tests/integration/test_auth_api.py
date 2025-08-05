@@ -322,7 +322,6 @@ class TestAuthAPI:
             "last_name": "NuevoApellido",
             "phone": "9876543210",
             "country_id": 2,
-            "education_area_id": 3,
             "email": "otro@email.com"  # No debe cambiar
         }
         response = client.put("/api/v1/auth/me", json=update_data, headers=headers)
@@ -332,7 +331,6 @@ class TestAuthAPI:
         assert data["last_name"] == "NuevoApellido"
         assert data["phone"] == "9876543210"
         assert data["country"]["id"] == 2
-        # assert data["education_area_id"] == 3  # Eliminado del modelo de respuesta
         # El email debe seguir igual
         assert data["email"] == admin_user.email
 
@@ -364,14 +362,6 @@ class TestAPIEndpoints:
         data = response.json()
         assert isinstance(data, list)
         assert any(c["code"] == "AR" for c in data)  # Argentina debe estar
-
-    def test_list_education_areas(self, client):
-        response = client.get("/api/v1/public/education-areas")
-        assert response.status_code == 200
-        data = response.json()
-        assert isinstance(data, list)
-        assert any(area["name"] == "Deseo no mencionarlo" and area["show_in_list"] is True for area in data)
-        assert all("id" in area and "name" in area and "show_in_list" in area for area in data) 
 
 
 def test_feedback_update_only_by_owner(client, admin_user, teacher_user):
