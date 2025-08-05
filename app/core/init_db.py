@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 from app.core.database import engine, SessionLocal
 from app.core.security import get_password_hash
 import structlog
+import os
 
 logger = structlog.get_logger(__name__)
 
@@ -52,9 +53,10 @@ def init_db():
         db.commit()
         
         # Create sample admin user
+        admin_password = os.getenv("ADMIN_PASSWORD", "ChangeMe123!")
         admin_user = User(
             email="admin@example.com",
-            password_hash=get_password_hash("Admin123!"),
+            password_hash=get_password_hash(admin_password),
             first_name="Admin",
             last_name="User",
             user_type=UserType.ADMIN,

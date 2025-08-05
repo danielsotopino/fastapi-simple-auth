@@ -110,54 +110,45 @@ La documentación está organizada por audiencia:
 | `GET` | `/health` | Health check del servicio |
 | `GET` | `/docs` | Documentación interactiva |
 
-## 👤 Usuario por Defecto
+### 🔐 **Usuario por Defecto**
 
 Para desarrollo, se crea automáticamente un usuario administrador:
 
 - **Email:** `admin@example.com`
-- **Contraseña:** `Admin123!`
-- **Tipo:** `ADMIN`
+- **Contraseña:** Configurable via `ADMIN_PASSWORD` (por defecto: `ChangeMe123!`)
+
+> ⚠️ **IMPORTANTE:** Cambia la contraseña del admin en producción usando la variable de entorno `ADMIN_PASSWORD`
 
 ## ⚙️ Configuración
 
-### Variables de Entorno
+### 🔧 **Variables de Entorno**
 
-```env
-# Base de datos
-DATABASE_URL=sqlite:///./test.db
+| Variable | Descripción | Valor por Defecto |
+|----------|-------------|-------------------|
+| `DATABASE_URL` | URL de la base de datos | `sqlite:///./test.db` |
+| `SECRET_KEY` | Clave secreta para JWT | `CHANGE_THIS_IN_PRODUCTION_USE_ENV_VAR` |
+| `ACCESS_TOKEN_EXPIRE_MINUTES` | Expiración de tokens | `30` |
+| `EMAIL_VERIFICATION_TOKEN_LIFETIME_HOURS` | Vida útil de tokens de email | `24` |
+| `FRONTEND_URL` | URL del frontend | `http://localhost:3000` |
+| `GOOGLE_CLIENT_ID` | ID de cliente de Google OAuth | `""` |
+| `GOOGLE_CLIENT_SECRET` | Secreto de cliente de Google OAuth | `""` |
+| `ADMIN_PASSWORD` | Contraseña del usuario admin | `ChangeMe123!` |
+| `HOST` | Host del servidor | `0.0.0.0` |
+| `PORT` | Puerto del servidor | `9000` |
+| `RELOAD` | Recarga automática | `true` |
 
-# JWT
-SECRET_KEY=your-secret-key-here-change-in-production
-ACCESS_TOKEN_EXPIRE_MINUTES=30
-
-# Email
-EMAIL_VERIFICATION_TOKEN_LIFETIME_HOURS=24
-FRONTEND_URL=http://localhost:3000
-
-# Google OAuth
-GOOGLE_CLIENT_ID=your-google-client-id
-GOOGLE_CLIENT_SECRET=your-google-client-secret
-
-# Logging
-LOG_LEVEL=DEBUG
-JSON_LOGS=false
-
-# Servidor
-HOST=0.0.0.0
-PORT=9000
-RELOAD=true
-```
+> ⚠️ **SEGURIDAD:** Cambia `SECRET_KEY` y `ADMIN_PASSWORD` en producción
 
 ### Ejemplo de Uso
 
 ```bash
 # Login
-curl -X POST "http://localhost:9000/auth/login" \
+curl -X POST http://localhost:9000/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"email": "admin@example.com", "password": "Admin123!"}'
+  -d '{"email": "admin@example.com", "password": "ChangeMe123!"}'
 
-# Obtener información del usuario
-curl -X GET "http://localhost:9000/auth/me" \
+# Usar token
+curl -X GET http://localhost:9000/auth/me \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
