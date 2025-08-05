@@ -24,6 +24,7 @@ class User(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
     country_id = Column(Integer, ForeignKey("countries.id"), nullable=True)
-    country = relationship("Country", backref="users")
-
-    classes = relationship("Class", back_populates="author") 
+    
+    # Relationships
+    country = relationship("Country", back_populates="users")
+    verification_tokens = relationship("VerificationToken", back_populates="user", cascade="all, delete-orphan") 

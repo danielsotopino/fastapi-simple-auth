@@ -12,7 +12,6 @@ def init_db():
     from app.models.user import User, UserType
     from app.models.country import Country
     from app.models.verification_token import VerificationToken
-    from app.models.class_model import Class
     
     # Create all tables
     from app.core.database import Base
@@ -29,13 +28,12 @@ def init_db():
         # Create sample countries
         countries = [
             Country(name="United States", code="USA"),
-            Country(name="Mexico", code="MEX"),
-            Country(name="Spain", code="ESP"),
-            Country(name="Argentina", code="ARG"),
+            Country(name="Argentina", code="AR"),
+            Country(name="Mexico", code="MX"),
+            Country(name="Spain", code="ES"),
+            Country(name="Colombia", code="CO")
         ]
-        
-        for country in countries:
-            db.add(country)
+        db.add_all(countries)
         db.commit()
         
         # Create sample admin user
@@ -57,7 +55,6 @@ def init_db():
     except Exception as e:
         logger.error(f"Error initializing database: {e}")
         db.rollback()
-        raise
     finally:
         db.close()
 

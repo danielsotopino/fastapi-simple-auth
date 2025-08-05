@@ -115,10 +115,21 @@ class User(Base):
     
     id = Column(Integer, primary_key=True, autoincrement=True)
     email = Column(String(255), unique=True, nullable=False)
-    # ... otros campos
+    password_hash = Column(String(255), nullable=False)
+    first_name = Column(String(100), nullable=False)
+    last_name = Column(String(100), nullable=False)
+    phone = Column(String(20))
+    user_type = Column(String(20), nullable=False)
+    is_active = Column(Boolean, default=True)
+    google_id = Column(String(255), unique=True, nullable=True, index=True)
+    is_oauth_user = Column(Boolean, default=False)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+    country_id = Column(Integer, ForeignKey("countries.id"), nullable=True)
     
-    # Relaciones
-    classes = relationship("Class", back_populates="author")
+    # Relationships
+    country = relationship("Country", back_populates="users")
+    verification_tokens = relationship("VerificationToken", back_populates="user", cascade="all, delete-orphan")
 ```
 
 #### Convenciones de Modelos

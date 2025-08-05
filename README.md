@@ -169,7 +169,6 @@ simple-auth/
 │   │   ├── user.py
 │   │   ├── country.py
 │   │   ├── education_area.py
-│   │   ├── class_model.py
 │   │   └── verification_token.py
 │   ├── schemas/                 # Esquemas Pydantic
 │   │   ├── auth.py
