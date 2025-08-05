@@ -168,7 +168,6 @@ simple-auth/
 │   ├── models/                  # Modelos SQLAlchemy
 │   │   ├── user.py
 │   │   ├── country.py
-│   │   ├── education_area.py
 │   │   └── verification_token.py
 │   ├── schemas/                 # Esquemas Pydantic
 │   │   ├── auth.py

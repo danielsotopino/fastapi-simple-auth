@@ -41,7 +41,6 @@ simple-auth/
 │   ├── models/                  # Modelos SQLAlchemy
 │   │   ├── user.py
 │   │   ├── country.py
-│   │   ├── education_area.py
 │   │   └── verification_token.py
 │   ├── schemas/                 # Esquemas Pydantic
 │   │   ├── auth.py
@@ -139,7 +138,6 @@ http://localhost:9000
   "last_name": "Doe",
   "phone": "+1234567890",
   "country_id": 1,
-  "education_area_id": 1,
   "user_type": "TEACHER"
 }
 ```
@@ -156,7 +154,6 @@ http://localhost:9000
   "is_oauth_user": false,
   "phone": "+1234567890",
   "country": null,
-  "education_area": null,
   "created_at": "2025-08-04T23:35:05",
   "updated_at": "2025-08-04T23:35:05"
 }
@@ -235,8 +232,7 @@ Authorization: Bearer <access_token>
   "last_name": "User",
   "user_type": "ADMIN",
   "phone": null,
-  "country": null,
-  "education_area": null
+  "country": null
 }
 ```
 
@@ -254,8 +250,7 @@ Authorization: Bearer <access_token>
   "first_name": "Updated",
   "last_name": "Name",
   "phone": "+1234567890",
-  "country_id": 1,
-  "education_area_id": 1
+  "country_id": 1
 }
 ```
 
@@ -332,7 +327,6 @@ class User(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
     country_id = Column(Integer, ForeignKey("countries.id"), nullable=True)
-    education_area_id = Column(Integer, ForeignKey("education_areas.id"), nullable=True)
 ```
 
 ### VerificationToken

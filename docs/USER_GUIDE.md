@@ -162,8 +162,7 @@ curl -X GET "http://localhost:9000/auth/me" \
   "last_name": "User",
   "user_type": "ADMIN",
   "phone": null,
-  "country": null,
-  "education_area": null
+  "country": null
 }
 ```
 
